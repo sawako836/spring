@@ -12,7 +12,7 @@ import kr.or.ddit.config.test.RootTestConfig;
 import kr.or.ddit.prod.model.Prod;
 import kr.or.ddit.prod.repository.IProdDao;
 
-public class ProdDaoTest extends RootTestConfig {
+public class ProdDaoTest extends RootTestConfig{
 
 	@Resource(name="prodDao")
 	private IProdDao prodDao;
@@ -26,6 +26,7 @@ public class ProdDaoTest extends RootTestConfig {
 	@Test
 	public void testGetProdList() {
 		/***Given***/
+		//IProdDao prodDao = new ProdDao();
 		String lprod_gu ="P101";
 				
 		/***When***/
@@ -34,5 +35,5 @@ public class ProdDaoTest extends RootTestConfig {
 		/***Then***/
 		assertEquals(6, prodList.size());
 	}
-	
+
 }

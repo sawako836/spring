@@ -1,8 +1,9 @@
-package kr.or.ddit.test.lprod.dao;
+package kr.or.ddit.test.lprod.service;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -10,13 +11,13 @@ import org.junit.Test;
 
 import kr.or.ddit.common.model.Page;
 import kr.or.ddit.config.test.RootTestConfig;
-import kr.or.ddit.lprod.dao.ILprodDao;
 import kr.or.ddit.lprod.model.Lprod;
+import kr.or.ddit.lprod.service.ILprodService;
 
-public class LprodDaoTest extends RootTestConfig{
+public class LprodServiceTest extends RootTestConfig{
 
-	@Resource(name="lprodDao")
-	private ILprodDao lprodDao;
+	@Resource(name="lprodService")
+	private ILprodService lprodService;
 	
 	/**
 	* Method : getLpordListTest
@@ -29,7 +30,7 @@ public class LprodDaoTest extends RootTestConfig{
 		/***Given***/
 	
 		/***When***/
-		List<Lprod> lprodList = lprodDao.getLprodList();
+		List<Lprod> lprodList = lprodService.getLprodList();
 
 		/***Then***/
 		assertEquals(9, lprodList.size());
@@ -47,27 +48,13 @@ public class LprodDaoTest extends RootTestConfig{
 		Page page = new Page(1, 5);
 
 		/***When***/
-		List<Lprod> lprodList = lprodDao.getLprodPagingList(page);
+		Map<String, Object> resultMap = lprodService.getLprodPagingList(page);
+		List<Lprod> lprodList = (List<Lprod>)resultMap.get("lprodList");
+		int paginationSize = (Integer)resultMap.get("paginationSize");
 
 		/***Then***/
 		assertEquals(5, lprodList.size());
-	}
-	
-	/**
-	* Method : getLprodTotalCnt
-	* 작성자 : PC-04
-	* 변경이력 :
-	* Method 설명 : 제품그룹 리스트 전체 건수 조회
-	*/
-	@Test
-	public void getLprodTotalCnt() {
-		/***Given***/
-		
-		/***When***/
-		int totalCnt = lprodDao.getLprodTotalCnt();
-
-		/***Then***/
-		assertEquals(9, totalCnt);
+		assertEquals(2, paginationSize);
 	}
 
 }

@@ -25,7 +25,7 @@ public class ProdDao implements IProdDao {
 	*/
 	@Override
 	public List<Prod> getProdList(String lprod_gu) {
-		return sqlSession.selectList("prod.getProdList", lprod_gu);
+		return sqlSession.selectList("getProdList", lprod_gu);
 	}
 
 }

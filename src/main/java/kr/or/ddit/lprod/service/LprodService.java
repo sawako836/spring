@@ -6,47 +6,50 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
 
 import kr.or.ddit.common.model.Page;
 import kr.or.ddit.lprod.dao.ILprodDao;
-
 import kr.or.ddit.lprod.model.Lprod;
 
-
+@Service
 public class LprodService implements ILprodService{
-	
+
 	@Resource(name="lprodDao")
 	private ILprodDao lprodDao;
 	
 	public LprodService() {
-		
-	}
-	
-	public LprodService(ILprodDao lprodDao) {
-		this.lprodDao = lprodDao;
 	}
 	
 	/**
-	 * 
+	* Method : getLprodList
+	* 작성자 : PC-04
+	* 변경이력 :
+	* @return
+	* Method 설명 : 제품 그룹 리스트 조회
+	*/
+	@Override
+	public List<Lprod> getLprodList() {
+		return lprodDao.getLprodList();
+	}
+
+	/**
 	* Method : getLprodPagingList
 	* 작성자 : PC-04
 	* 변경이력 :
+	* @param sqlSession
 	* @param page
 	* @return
-	* Method 설명 : 제품그룹 페이징 리스트 조회
-	 */
+	* Method 설명 : 제품 그룹 페이징 리스트 조회
+	*/
 	@Override
 	public Map<String, Object> getLprodPagingList(Page page) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		List<Lprod> lprodList = lprodDao.getLprodPagingList(page);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		int totalCnt = lprodDao.getLprodTotalCnt();
 		
-		map.put("lprodList", lprodList);
-		map.put("paginationSize", (int)Math.ceil((double)totalCnt / page.getPagesize()));
-		
-		return map;
-		
+		resultMap.put("lprodList", lprodDao.getLprodPagingList(page));
+		resultMap.put("paginationSize", (int)Math.ceil( (double)totalCnt / page.getPagesize()));
+		return resultMap;
 	}
 
 }
