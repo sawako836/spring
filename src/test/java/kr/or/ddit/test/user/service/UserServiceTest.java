@@ -1,4 +1,4 @@
-package kr.or.ddit.user.service;
+package kr.or.ddit.test.user.service;
 
 import static org.junit.Assert.*;
 
@@ -22,6 +22,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import kr.or.ddit.common.model.Page;
 import kr.or.ddit.config.test.RootTestConfig;
 import kr.or.ddit.user.model.User;
+import kr.or.ddit.user.service.IUserService;
 import oracle.jdbc.dcn.DatabaseChangeEvent;
 
 public class UserServiceTest extends RootTestConfig{
