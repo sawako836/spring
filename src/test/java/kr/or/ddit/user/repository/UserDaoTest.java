@@ -8,24 +8,24 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.ddit.common.model.Page;
+import kr.or.ddit.config.test.RootTestConfig;
 import kr.or.ddit.user.dao.IUserDao;
 import kr.or.ddit.user.model.User;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
-		"classpath:kr/or/ddit/config/spring/context-root.xml",
-		"classpath:kr/or/ddit/config/spring/context-datasource.xml",
-		"classpath:kr/or/ddit/config/spring/context-transaction.xml"})
-public class UserDaoTest {
+public class UserDaoTest extends RootTestConfig {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserDaoTest.class);
 
@@ -35,12 +35,6 @@ public class UserDaoTest {
 	//db 연결, 트랜잭션, dao
 	@Resource(name="userDao")
 	private IUserDao userDao;
-	
-	@Before
-	public void setup() {
-		logger.debug("before");
-		userDao.deleteUser(userId);
-	}
 	
 	/**
 	* Method : getUserListTest

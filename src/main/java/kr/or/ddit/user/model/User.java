@@ -13,6 +13,7 @@ public class User {
 	private String pass;
 	private String userNm;
 	private String alias;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date reg_dt;			// 등록일
 	private String addr1;			// 주소1
 	private String addr2;			// 주소2
