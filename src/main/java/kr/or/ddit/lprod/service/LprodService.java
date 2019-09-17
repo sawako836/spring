@@ -49,6 +49,7 @@ public class LprodService implements ILprodService{
 		
 		resultMap.put("lprodList", lprodDao.getLprodPagingList(page));
 		resultMap.put("paginationSize", (int)Math.ceil( (double)totalCnt / page.getPagesize()));
+		
 		return resultMap;
 	}
 

@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
+
 public class User {
 	private static final Logger logger = LoggerFactory.getLogger(User.class);
 	private String userId;
@@ -69,6 +71,10 @@ public class User {
 		this.alias = alias;
 	}
 	
+	public Date getReg_dt() {
+		return reg_dt;
+	}
+
 	public String getReg_dt_fmt() {
 		logger.debug("getReg_dt_fmt method call");
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -141,6 +147,15 @@ public class User {
 
 	public void setRealfilename2(String realfilename2) {
 		this.realfilename2 = realfilename2;
+	}
+
+	public boolean checkLoginValidate(String userId, String pass) {
+		
+		// 암호화 문장끼리 비교
+		if(userId.equals(this.userId) && KISA_SHA256.encrypt(pass).equals(this.pass))
+			return true;
+		
+		return false;
 	}
 
 	@Override

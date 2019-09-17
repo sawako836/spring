@@ -13,7 +13,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:kr/or/ddit/config/spring/servlet-context.xml") // controller scan : servlet-context.xml
+@ContextConfiguration(locations = {"classpath:kr/or/ddit/config/spring/servlet-context.xml",
+					  			   "classpath:kr/or/ddit/config/spring/context-root.xml",
+					  			   "classpath:kr/or/ddit/config/spring/context-datasource-test.xml",
+					  			   "classpath:kr/or/ddit/config/spring/context-transaction.xml"}) // controller scan : servlet-context.xml
 @WebAppConfiguration	// 스프링 컨테이너를 구성할 web기반 application context로 구성
 public class WebTestConfig {
 	
@@ -38,7 +41,7 @@ public class WebTestConfig {
 		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
 	}
 	
-	// 테스트코드를 실행할 메서드가 없다는 에러가 났을 시 사용
+	// 테스트코드를 실행할 메서드가 없다는 에러가 났을 시 사용r
 
 	@Ignore		// 테스트코드를 실행하지 말고 건너띄어라
 	@Test
