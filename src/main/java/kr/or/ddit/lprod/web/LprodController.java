@@ -18,6 +18,15 @@ public class LprodController {
 	@Resource(name="lprodService")
 	private ILprodService lprodService;
 	
+	/**
+	 * 
+	* Method : lprodList
+	* 작성자 : PC-04
+	* 변경이력 :
+	* @param model
+	* @return
+	* Method 설명 : 제품 리스트 조회
+	 */
 	@RequestMapping(path = "lprodList", method = RequestMethod.GET)
 	public String lprodList(Model model) {
 		
@@ -26,8 +35,19 @@ public class LprodController {
 		return "lprod/lprodList";
 	}
 	
+	/**
+	 * 
+	* Method : lprodPagingList
+	* 작성자 : PC-04
+	* 변경이력 :
+	* @param page
+	* @param model
+	* @return
+	* Method 설명 : 제품 페이징 리스트 조회
+	 */
 	@RequestMapping(path = "lprodPagingList", method = RequestMethod.GET)
 	public String lprodPagingList(Page page, Model model) {
+		page.setPagesize(5);
 		model.addAttribute("pageVo", page);
 		model.addAttribute("resultMap", lprodService.getLprodPagingList(page));
 		

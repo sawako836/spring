@@ -59,6 +59,8 @@
   </head>
 
   <body>
+  	userId : ${userId }
+	
     <div class="container">
     	<%
     		HttpSession httpSession = request.getSession();

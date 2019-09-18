@@ -57,7 +57,7 @@ $(document).ready(function(){
 									<th>제품그룹 명</th>
 								</tr>
 								
-								<c:forEach items="${lprodList }" var="lprod">
+								<c:forEach items="${resultMap.lprodList }" var="lprod">
 									<tr class="lprodTr" data-lprod_gu="${lprod.lprod_gu }">
 										<td>${lprod.lprod_id }</td>
 										<td>${lprod.lprod_gu }</td>
@@ -89,7 +89,7 @@ $(document).ready(function(){
 									</c:otherwise>
 								</c:choose>
 								
-								<c:forEach begin="1" end="${paginationSize}" var="page">
+								<c:forEach begin="1" end="${resultMap.paginationSize}" var="page">
 									<c:choose>
 										<c:when test="${page == pageVo.page}">
 											<li class="active"><span>${page }</span></li>
@@ -103,7 +103,7 @@ $(document).ready(function(){
 								<li> <!-- pagination >> 화살표 -->
 								<%-- 오른쪽으로 이동 --%>
 								<c:choose>
-									<c:when test="${param.page == paginationSize}">
+									<c:when test="${param.page == resultMap.paginationSize}">
 										<li class="disabled">
 											<span aria-hidden="true">&raquo;</span>
 										</li>
