@@ -3,6 +3,8 @@ package kr.or.ddit.user.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,10 +13,12 @@ import kr.or.ddit.encrypt.kisa.sha256.KISA_SHA256;
 
 public class User {
 	private static final Logger logger = LoggerFactory.getLogger(User.class);
-	private String userId;
-	private String pass;
-	private String userNm;
-	private String alias;
+	private String userId;			// 사용자 아이디
+	
+	@NotNull
+	private String pass;			// 사용자 비밀번호
+	private String userNm;			// 사용자 이름
+	private String alias;			// 별명
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date reg_dt;			// 등록일
 	private String addr1;			// 주소1

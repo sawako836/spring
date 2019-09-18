@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,6 +21,22 @@ $(document).ready(function(){
 </head>
 <body>
 	<h2>mvc/view.jsp</h2>
+	
+	<h3>spring validator jsr303</h3>
+	<form action="${cp }/mvc/jsr303">
+		<!-- path 앞에는 객체명을 적어줘야 한다. -->
+		<input type="text" name="userId" value="brown"><br>
+		<input type="text" name="userNm" value="브라운"><br>
+		<input type="submit" value="전송"><form:errors path="user.pass"/>
+	</form>
+	
+	<h3>spring validator</h3>
+	<form action="${cp }/mvc/validator">
+		<!-- path 앞에는 객체명을 적어줘야 한다. -->
+		<input type="text" name="userId" value="brown"><form:errors path="user.userId"/><br>
+		<input type="text" name="userNm" value="브라운"><br>
+		<input type="submit" value="전송">
+	</form>
 	
 	<h3>redirect Attribute</h3>
 	<form action="${cp }/mvc/redirect">

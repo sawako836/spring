@@ -8,7 +8,7 @@ public class FileUtilTest {
 
 	/**
 	* Method : getExtensionTest
-	* 작성자 : SEM-PC
+	* 작성자 : PC-04
 	* 변경이력 :
 	* Method 설명 : 파일 확장자 가져오기 테스트
 	*/
@@ -26,7 +26,7 @@ public class FileUtilTest {
 	
 	/**
 	* Method : getExtensionTest
-	* 작성자 : SEM-PC
+	* 작성자 : PC-04
 	* 변경이력 :
 	* Method 설명 : 파일 확장자 가져오기 테스트 (확장자가 없는경우)
 	*/
@@ -45,7 +45,7 @@ public class FileUtilTest {
 	
 	/**
 	* Method : getExtensionTest
-	* 작성자 : SEM-PC
+	* 작성자 : PC-04
 	* 변경이력 :
 	* Method 설명 : 파일 확장자 가져오기 테스트 (파일명에 dot 이 여러개 존재하는 경우)
 	*/
