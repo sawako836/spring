@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+//import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -26,7 +27,9 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import kr.or.ddit.exception.NoFileException;
 import kr.or.ddit.mvc.model.Main;
@@ -34,12 +37,16 @@ import kr.or.ddit.user.model.User;
 import kr.or.ddit.user.model.UserValidator;
 import kr.or.ddit.util.FileUtil;
 import kr.or.ddit.util.model.FileInfo;
+import kr.or.ddit.view.FileDownloadView;
 
 @SessionAttributes("rangers")
 @RequestMapping("mvc")
 @Controller
 public class SpringMvcController {
 	private static final Logger logger = LoggerFactory.getLogger(SpringMvcController.class);
+	
+	@javax.annotation.Resource(name="jsonView")
+	private View jsonView;
 	
 	// @RequestMapping이 붙은 메서드가 실행되기 전에 @ModelAttribute 메서드가 먼저 실행되고
 	// 해당 메서드가 리턴하는 값을 Model 객체에 자동으로 넣어준다.
@@ -217,6 +224,38 @@ public class SpringMvcController {
 		}
 		
 		return "mvc/view";
+	}
+	
+	@RequestMapping("jsonView")
+	public String jsonView(Model model) {
+		List<String> rangers = new ArrayList<String>();
+		rangers.add("brown");
+		rangers.add("cony");
+		rangers.add("sally");
+		
+		model.addAttribute("rangers", rangers);
+		
+		return "jsonView";
+		// return new MappingJackson2JsonView();
+	}
+	
+	@RequestMapping("fileDownloadView")
+	public String FileDownloadView(String pictureName, Model model) {
+		model.addAttribute("pictureName", pictureName);
+		return "FileDownloadView";
+	}
+	
+	@RequestMapping("jsonView2")
+	public View jsonView2(Model model) {
+		List<String> rangers = new ArrayList<String>();
+		rangers.add("brown");
+		rangers.add("cony");
+		rangers.add("sally");
+		
+		model.addAttribute("rangers", rangers);
+		
+		return new MappingJackson2JsonView();
+		
 	}
 	
 	
