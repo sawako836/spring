@@ -155,7 +155,7 @@ public class UserControllerTest extends WebTestConfig{
 		
 		MockMultipartFile file = new MockMultipartFile("picture", "sally.png", "", fis);
 		
-		mockMvc.perform(fileUpload("/user/userForm")
+		mockMvc.perform(fileUpload("/user/userUpdate")
 						.file(file)
 						.param("userId", "brownTest")
 						.param("userNm", "브라운테스트")
