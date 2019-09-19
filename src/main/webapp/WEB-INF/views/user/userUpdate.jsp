@@ -66,14 +66,14 @@
 			</div>
 
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<form id="frm" class="form-horizontal" role="form" action="${cp }/userUpdate" method="post" enctype="multipart/form-data">
+				<form id="frm" class="form-horizontal" role="form" action="${cp }/user/userUpdate" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="filename" value="${user.filename}">
 					<input type="hidden" name="realfilename" value="${user.realfilename}">
 					
 					<div class="form-group">
 						<label for="userNm" class="col-sm-2 control-label">사용자 사진</label>
 						<div class="col-sm-10">
-							<img src="${cp }/userPicture?userId=${user.userId}">
+							<img src="${cp }/user/userPicture?userId=${user.userId}">
 						</div>
 					</div>
 					
@@ -112,7 +112,7 @@
 						<label for="userAlias" class="col-sm-2 control-label">별명</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="userAlias"
-								name="userAlias" placeholder="별명" value="${user.alias}">
+								name="alias" placeholder="별명" value="${user.alias}">
 						</div>
 					</div>
 					
