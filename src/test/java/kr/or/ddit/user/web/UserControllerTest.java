@@ -125,49 +125,49 @@ public class UserControllerTest extends WebTestConfig{
 		
 	}
 	
-	/**
-	 * 
-	* Method : userUpdateViewTest
-	* 작성자 : PC-04
-	* 변경이력 :
-	* @throws Exception
-	* Method 설명 : 사용자 수정화면 요청 테스트
-	 */
-	@Test
-	public void userUpdateViewTest() throws Exception {
-		/***Given***/
-		
-
-		/***When***/
-		MvcResult mvcResult = mockMvc.perform(get("/user/userUpdate")).andReturn();
-		ModelAndView mav = mvcResult.getModelAndView();
-
-		/***Then***/
-		assertEquals("user/userUpdate", mav.getViewName());
-		
-	} 
-	
+//	/**
+//	 * 
+//	* Method : userUpdateViewTest
+//	* 작성자 : PC-04
+//	* 변경이력 :
+//	* @throws Exception
+//	* Method 설명 : 사용자 수정화면 요청 테스트
+//	 */
+//	@Test
+//	public void userUpdateViewTest() throws Exception {
+//		/***Given***/
+//		
+//
+//		/***When***/
+//		MvcResult mvcResult = mockMvc.perform(get("/user/userUpdate")).andReturn();
+//		ModelAndView mav = mvcResult.getModelAndView();
+//
+//		/***Then***/
+//		assertEquals("user/userUpdate", mav.getViewName());
+//		
+//	} 
+//	
 	// 사용자 수정 요청 테스트
-	@Test
-	public void userUpdateTest() throws Exception {
-		File f = new File("src/test/resources/kr/or/ddit/test/sally.png");
-		FileInputStream fis = new FileInputStream(f);
-		
-		MockMultipartFile file = new MockMultipartFile("picture", "sally.png", "", fis);
-		
-		mockMvc.perform(fileUpload("/user/userUpdate")
-						.file(file)
-						.param("userId", "brownTest")
-						.param("userNm", "브라운테스트")
-						.param("alias", "곰테스트")
-						.param("reg_dt", "2019-08-08")
-						.param("addr1", "대전광역시 중구 중앙로 76")
-						.param("addr2", "영민빌딩 2층 DDIT")
-						.param("zipcode", "34940")
-						.param("pass", "brownTest1234"))
-		.andExpect(status().is(302));
-		//.andExpect(view().name("redirect:user/user"));
-	}
+//	@Test
+//	public void userUpdateTest() throws Exception {
+//		File f = new File("src/test/resources/kr/or/ddit/test/sally.png");
+//		FileInputStream fis = new FileInputStream(f);
+//		
+//		MockMultipartFile file = new MockMultipartFile("picture", "sally.png", "", fis);
+//		
+//		mockMvc.perform(fileUpload("/user/userUpdate")
+//						.file(file)
+//						.param("userId", "brownTest")
+//						.param("userNm", "브라운테스트")
+//						.param("alias", "곰테스트")
+//						.param("reg_dt", "2019-08-08")
+//						.param("addr1", "대전광역시 중구 중앙로 76")
+//						.param("addr2", "영민빌딩 2층 DDIT")
+//						.param("zipcode", "34940")
+//						.param("pass", "brownTest1234"))
+//		.andExpect(status().is(302));
+//		//.andExpect(view().name("redirect:user/user"));
+//	}
 	
 	@Test
 	public void pageTest() {

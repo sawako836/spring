@@ -210,24 +210,35 @@ public class UserController {
 	* Method 설명 : 사용자 수정 화면 요청
 	 */
 	@RequestMapping(path = "userUpdate", method = RequestMethod.GET)
-	public String userUpdate(Model model, String userId) {
+	public String userUpdateView(String userId, Model model) {
 		model.addAttribute("user",userService.getUser(userId));
 		return "user/userUpdate";
 	}
 	
 	@RequestMapping(path = "userUpdate", method = RequestMethod.POST)
-	public String UserUpdate(User user, BindingResult result, HttpServletResponse response, 
-							@RequestPart("picture") MultipartFile picture) {
-		if(result.hasErrors()) // 잘못 되면 사용자 수정 화면으로 이동
-			return "user/userUpdate";
+	public String userUpdate(User user, BindingResult result, Model model,
+			@RequestPart("picture") MultipartFile picture) {
+
+		new UserValidator().validate(user, result);
+
+		if (result.hasErrors())
+			return userUpdateView(user.getUserId(), model);
 		else {
 			FileInfo fileInfo = FileUtil.getFileInfo(picture.getOriginalFilename());
-			
-			// 사용자가 파일을 업로드 한 경우
+			// 첨부된 파일이 있을 경우만 업로드처리
 			if (picture.getSize() > 0) {
 				try {
+
+					// 기존 파일은 삭제한다
+					User orgUser = userService.getUser(user.getUserId());
+					
+					if(orgUser.getRealfilename() != null) {
+						File file = new File(orgUser.getRealfilename());
+						file.delete();
+					}
+
 					picture.transferTo(fileInfo.getFile());
-					user.setFilename(fileInfo.getOrginalFileName()); // originalFilename
+					user.setFilename(fileInfo.getOrginalFileName());		// originalFilename
 					user.setRealfilename(fileInfo.getFile().getPath());
 
 				} catch (IllegalStateException | IOException e) {
@@ -235,15 +246,52 @@ public class UserController {
 				}
 			}
 
-			int updateCnt = 0; 
-			
-			logger.debug("user : {}", user);
-		
-			updateCnt = userService.updateUser(user);
-			if(updateCnt == 1) {
+			int updateCnt = userService.updateUser(user);
+
+			if (updateCnt == 1)
 				return "redirect:/user/user?userId=" + user.getUserId();
-			} else
-				return "user/userUpdate";
+			else
+				return userUpdateView(user.getUserId(), model);
 		}
+	}
+	
+	@RequestMapping(path = "userPagingListAjaxView")
+	public String userPagingListAjaxView() {
+		return "user/userPagingListAjaxView";
+	}
+	
+	@RequestMapping(path = "userPagingListAjax", method = RequestMethod.GET)
+	public String userPagingListAjax(@RequestParam(name="page", defaultValue = "1") int p,
+								 	 @RequestParam(defaultValue = "10")int pagesize, Model model) {
+	//public String userPagingList(Page page, Model model) {
+		
+		Page page = new Page(p, pagesize);
+		model.addAttribute("pageVo", page);
+				
+		Map<String, Object> resultMap = userService.getUserPagingList(page);
+		model.addAllAttributes(resultMap);
+				
+		return "jsonView";
+	}
+	
+	/**
+	 * 
+	* Method : userPagingListHtmlAjax
+	* 작성자 : PC-04
+	* 변경이력 :
+	* @return
+	* Method 설명 : 사용자 페이징 리스트의 결과를 html로 생성한다 (jsp로 보낸다)
+	 */
+	@RequestMapping("userPagingListHtmlAjax")
+	public String userPagingListHtmlAjax(@RequestParam(defaultValue = "1") int page,
+										 @RequestParam(defaultValue = "10") int pagesize,
+										 Model model) {
+		
+		Page pageVo = new Page(page, pagesize);
+		Map<String, Object> resultMap = userService.getUserPagingList(pageVo);
+		model.addAllAttributes(resultMap);
+		model.addAttribute("pageVo", pageVo);
+		
+		return "user/userPagingListHtmlAjax";
 	}
 }
