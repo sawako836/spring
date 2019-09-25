@@ -58,6 +58,7 @@ public class LoginControllerTest extends WebTestConfig{
 		MockHttpSession session = new MockHttpSession();
 		
 		mockMvc.perform(post("/login")
+						.session(session)
 						.param("userId", "brown")
 						.param("pass", "brown1234"))
 			   .andExpect(status().isOk())

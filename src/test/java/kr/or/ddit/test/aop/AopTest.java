@@ -13,7 +13,8 @@ import kr.or.ddit.test.ioc.ApplicationJavaConfigScanT1;
 import kr.or.ddit.user.service.IUserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ApplicationJavaConfigScanT1.class)
+@ContextConfiguration(locations = {"classpath:kr/or/ddit/spring/aop/application-context-aop-test.xml",
+								   "classpath:kr/or/ddit/config/spring/context-datasource-test.xml"})
 public class AopTest {
 
 	@Resource(name="userService")

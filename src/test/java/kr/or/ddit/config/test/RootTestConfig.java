@@ -13,11 +13,17 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import kr.or.ddit.config.RootConfig;
+import kr.or.ddit.config.spring.DataSourceConfigTest;
+
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {
+/*
+  @ContextConfiguration(locations = {
 		"classpath:kr/or/ddit/config/spring/context-root.xml",
 		"classpath:kr/or/ddit/config/spring/context-datasource-test.xml",
 		"classpath:kr/or/ddit/config/spring/context-transaction.xml"})
+*/
+@ContextConfiguration(classes = {RootConfig.class, DataSourceConfigTest.class})
 public class RootTestConfig {
 	
 	@Resource(name="datasource")
